@@ -12,13 +12,29 @@
 
 #include "get_next_line.h"
 
+size_t	get_line_len(char *full_line)
+{
+	size_t	i;
+
+	i = 0;
+	while (full_line)
+	{
+		if (full_line[i] == '\n' || full_line[i] == '\0')
+			return (i);
+		else
+			i++;
+	}
+	printf("len = %i", i);
+	return (i);
+}
+
 char	*get_line(char *full_line)
 {
 	char	*line;
 	size_t	i;
-
+		
 	i = 0;
-	line = malloc(sizeof(char) * ft_strlen(ft_strchr(full_line, '\n')) + 1);
+	line = malloc(sizeof(char) * (get_line_len(full_line) + 1));
 	if (!line)
 		return (NULL);
 	while (full_line[i] != '\n' || full_line[i] == '\0')
@@ -59,7 +75,6 @@ char	*get_next_line(int fd)
 	i = 0;
 	full_line = ft_substr(full_line, ft_strlen(line), ft_strlen(full_line) - ft_strlen(line) + 1);
 	printf("full_line: %s", full_line);
-	free(buffer);
 	return (line);
 }
 
