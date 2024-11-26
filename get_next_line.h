@@ -23,11 +23,12 @@
 # include <string.h>
 # include <unistd.h>
 
-size_t	ft_strlen(const char *s);
+size_t	ft_strlen(char *s);
 
 char	*ft_strchr(const char *s, int c);
 char	*ft_strjoin(char *s1, char *s2);
-char	*ft_substr(char const *s, unsigned int start, size_t len);
+char	*ft_substr(char *s, unsigned int start, size_t len);
 char	*ft_strdup(char *s);
+size_t	ft_strlcpy(char *dst, char *src, size_t size);
 
 #endif

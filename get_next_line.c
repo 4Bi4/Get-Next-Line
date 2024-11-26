@@ -18,12 +18,16 @@ char	*get_line(char *full_line)
 	size_t	i;
 
 	i = 0;
-	while (full_line[i] != '\n')
+	line = malloc(sizeof(char) * ft_strlen(ft_strchr(full_line, '\n')) + 1);
+	if (!line)
+		return (NULL);
+	while (full_line[i] != '\n' || full_line[i] == '\0')
 	{
-		line [i] = full_line [i];
+		line[i] = full_line[i]; 
 		i++;
 	}
-	line[i] = '\0';
+	line[i] = full_line[i];
+	line[++i] = '\0';
 	return (line);
 }
 
@@ -31,47 +35,33 @@ char	*get_next_line(int fd)
 {
 	char		*buffer;
 	char		*line;
-	static char	*full_line = NULL;
+	static char	*full_line;
 	size_t		rbytes;
-	size_t		linelen;
 	size_t		i;
 
 	rbytes = 42;
-	linelen = 0;
-	buffer = (char *)malloc(sizeof(char) * BUFFER_SIZE + 1);
+	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!buffer)
 		return (NULL);
 	buffer[0] = '\0';
-	while (rbytes > 0)
-	{
+	while (rbytes > 0 || full_line)
+	{	
 		rbytes = read(fd, buffer, BUFFER_SIZE);
+		buffer[rbytes] = '\0';
 		if (rbytes <= 0)
-			return (NULL);
-		if (full_line = NULL)
-		{
+			break ;
+		if (full_line == NULL)
 			full_line = ft_strdup(buffer);
-			printf("funciona?? = %s", full_line);
-		}
 		else
-		{
-			printf("SE METE A ELSE\n");
-			printf("buffer = %s\n", buffer);
-			printf("s1 = %s\n", full_line);
 			full_line = ft_strjoin(full_line, buffer);
-		}
 	}
 	line = get_line(full_line);
-	linelen = ft_strlen(line);
 	i = 0;
-	while (i <= linelen)
-	{
-		full_line[i] = '\0';
-		i++;
-	}
+	full_line = ft_substr(full_line, ft_strlen(line), ft_strlen(full_line) - ft_strlen(line) + 1);
+	printf("full_line: %s", full_line);
+	free(buffer);
 	return (line);
 }
-
-#include <stdio.h>
 
 int	main(void)
 {
@@ -79,8 +69,9 @@ int	main(void)
 	char	*line;
 
 	fd = open("test.txt", O_RDONLY);
-	printf("fd: %d\n", fd);
 	line = get_next_line(fd);
-	printf("Resultado: %s\n", line);
+	printf("Resultado 1: %s", line);
+	line = get_next_line(fd);
+	printf("Resultado 2: %s", line);
 	return (0);
 }
