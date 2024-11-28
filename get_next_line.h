@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: labia-fe <labia-fe@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/26 11:32:30 by labia-fe          #+#    #+#             */
-/*   Updated: 2024/11/27 15:11:34 by labia-fe         ###   ########.fr       */
+/*   Created: 2024/11/28 15:43:20 by labia-fe          #+#    #+#             */
+/*   Updated: 2024/11/28 15:53:10 by labia-fe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,19 @@
 # endif
 
 # include <stdlib.h>
-# include <fcntl.h>
 # include <stdio.h>
-# include <string.h>
+# include <fcntl.h>
 # include <unistd.h>
 
-size_t	ft_strlcpy(char *dst, char *src, size_t size);
 size_t	ft_strlen(char *s);
+size_t	get_line_len(char *temp);
+size_t	ft_strlcpy(char *dst, char *src, size_t size);
 
-char	*ft_substr(char *s, unsigned int start, size_t len);
-char	*ft_strjoin(char *s1, char *s2);
-char	*ft_strchr(char *s, int c);
-char	*get_line(char *temp);
 char	*ft_strdup(char *s);
+char	*get_line(char *temp);
+char	*get_next_line(int fd);
+char	*ft_strchr(char *s, int c);
+char	*ft_strjoin(char *s1, char *s2);
+char	*ft_substr(char *s, unsigned int start, size_t len);
 
 #endif
