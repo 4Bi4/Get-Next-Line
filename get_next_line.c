@@ -6,7 +6,7 @@
 /*   By: labia-fe <labia-fe@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 15:05:50 by labia-fe          #+#    #+#             */
-/*   Updated: 2024/11/28 16:19:01 by labia-fe         ###   ########.fr       */
+/*   Updated: 2024/11/28 20:12:43 by labia-fe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,24 +19,6 @@ size_t	ft_strlen(char *s)
 	i = 0;
 	while (s[i] != '\0')
 		i++;
-	return (i);
-}
-
-size_t	get_line_len(char *temp)
-{
-	size_t	i;
-
-	i = 0;
-	while (temp)
-	{
-		if (temp[i] == '\n')
-			return (i + 1);
-		else if (temp[i] == '\0')
-			return (i);
-		else
-			i++;
-	}
-	printf("len = %zu", i);
 	return (i);
 }
 
@@ -53,13 +35,13 @@ char	*get_line(char *temp)
 	if (temp[i] == '\n')
 		i++;
 	line = ft_substr(temp, 0, i);
-	free(temp);
 	return (line);
 }
 
 char	*get_next_line(int fd)
 {
 	static char	*temp;
+	char		*temp2;
 	char		*buffer;
 	char		*line;
 	size_t		rbytes;
@@ -68,7 +50,6 @@ char	*get_next_line(int fd)
 	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if(!buffer)
 		return (NULL);
-	buffer[0] = '\0';
 	while (rbytes > 0 && !(ft_strchr(buffer, '\n')))
 		{
 			rbytes = read(fd, buffer, BUFFER_SIZE);
@@ -80,23 +61,26 @@ char	*get_next_line(int fd)
 			else
 				temp = ft_strjoin(temp, buffer);		
 		}
-	free(buffer);
 	line = get_line(temp);
+	temp2 = temp;
 	temp = ft_substr(temp, ft_strlen(line), ft_strlen(temp) - ft_strlen(line) + 1);
+	free (temp2);
 	return (line);
 }
 
 int	main(void)
 {
-	int		fd;
-	int		i;
-	char	*line;
+	size_t		fd;
+	size_t		i;
+	char		*line;
 
-	i = 0;
+	i = 1;
 	fd = open("test.txt", O_RDONLY);
-	while ((line = get_next_line(fd)))
+	line = get_next_line(fd);
+	while (line)
 	{
-		printf("linea %d: %s", i, line);
+		line = get_next_line(fd);
+		printf("linea %zu: %s", i, line);
 		free(line);
 		i++;
 	}
