@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   gnl_tools.c                                        :+:      :+:    :+:   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: labia-fe <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: labia-fe <labia-fe@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 11:31:40 by labia-fe          #+#    #+#             */
-/*   Updated: 2024/11/26 11:32:54 by labia-fe         ###   ########.fr       */
+/*   Updated: 2024/11/27 17:23:42 by labia-fe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,12 @@ char	*ft_strjoin(char *s1, char *s2)
 	size_t	len2;
 	size_t	i;
 
-
 	len1 = ft_strlen(s1);
 	len2 = ft_strlen(s2);
 	i = 0;
 	ptr = malloc(len1 + len2 + 1);
 	if (!ptr)
-		return (NULL);
+		return (free(s1), NULL);
 	while (i < len1)
 	{
 		ptr[i] = s1[i];
@@ -38,20 +37,11 @@ char	*ft_strjoin(char *s1, char *s2)
 		i++;
 	}
 	ptr[len1 + i] = '\0';
+	free(s1);
 	return (ptr);
 }
 
-size_t	ft_strlen (char *s)
-{
-	size_t	i;
-
-	i = 0;
-	while (s[i] != '\0')
-		i++;
-	return (i);
-}
-
-char	*ft_strchr(const char *s, int c)
+char	*ft_strchr(char *s, int c)
 {
 	unsigned int	i;
 
