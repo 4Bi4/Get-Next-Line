@@ -6,7 +6,7 @@
 /*   By: labia-fe <labia-fe@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 02:20:30 by labia-fe          #+#    #+#             */
-/*   Updated: 2024/12/01 04:00:19 by labia-fe         ###   ########.fr       */
+/*   Updated: 2024/12/01 04:25:52 by labia-fe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ char	*ft_strjoin(char *s1, char *s2)
 	ptr[len1 + i] = '\0';
 	return (ptr);
 }
+
 char	*ft_substr(char *s, unsigned int start, size_t len)
 {
 	char	*ptr;

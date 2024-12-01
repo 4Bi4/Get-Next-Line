@@ -6,7 +6,7 @@
 /*   By: labia-fe <labia-fe@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 01:10:38 by labia-fe          #+#    #+#             */
-/*   Updated: 2024/12/01 04:14:46 by labia-fe         ###   ########.fr       */
+/*   Updated: 2024/12/01 04:26:28 by labia-fe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,12 +92,12 @@ char	*get_next_line(int fd)
 			str = ft_strjoin(str, buffer);
 	}
 	free(buffer);
-    if (rbytes == 0 && (!str || !*str))
-    {
-        free(str);
-        str = NULL;
-        return (NULL);
-    }
+	if (rbytes == 0 && (!str || !*str))
+	{
+		free(str);
+		str = NULL;
+		return (NULL);
+	}
 	line = get_line(str);
 	temp = str;
 	str = ft_substr(temp, ft_strlen(line), ft_strlen(temp) - ft_strlen(line));
@@ -105,13 +105,12 @@ char	*get_next_line(int fd)
 	return (line);
 }
 
-
 int	main(void)
 {
 	char	*line;
 	int		fd;
 	size_t	i;
-	
+
 	fd = open("test.txt", O_RDONLY);
 	while ((line = get_next_line(fd)))
 	{
