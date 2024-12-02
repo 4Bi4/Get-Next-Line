@@ -6,31 +6,11 @@
 /*   By: labia-fe <labia-fe@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 01:10:38 by labia-fe          #+#    #+#             */
-/*   Updated: 2024/12/01 04:26:28 by labia-fe         ###   ########.fr       */
+/*   Updated: 2024/12/02 13:46:56 by labia-fe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
-char	*ft_strchr(char *s, int c)
-{
-	unsigned int	i;
-
-	i = 0;
-	if (!s)
-		return (NULL);
-	while (s[i])
-	{
-		if (s[i] == (char)c)
-		{
-			return ((char *)&s[i]);
-		}
-		i++;
-	}
-	if (s[i] == (char)c)
-		return ((char *)&s[i]);
-	return (NULL);
-}
 
 size_t	ft_strlen(char	*str)
 {
@@ -63,45 +43,69 @@ char	*get_line(char	*str)
 	return (line);
 }
 
-char	*get_next_line(int fd)
+static char	*buffer_manager(int fd, char *str, char *buffer)
 {
-	static char	*str;
-	char		*buffer;
-	char		*line;
-	char		*temp;
-	int			rbytes;
+	char	*temp;
+	int		rbytes;
 
-	buffer = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	if (!buffer)
-		return (NULL);
-	if (fd < 0 || BUFFER_SIZE <= 0)
-		return (NULL);
-	rbytes = 42;
+	rbytes = 1;
 	while (rbytes > 0 && !ft_strchr(str, '\n'))
 	{
 		rbytes = read(fd, buffer, BUFFER_SIZE);
 		if (rbytes < 0)
 		{
-			free (buffer);
+			free(buffer);
 			return (NULL);
 		}
 		buffer[rbytes] = '\0';
+		temp = str;
 		if (!str)
 			str = ft_strdup(buffer);
 		else
 			str = ft_strjoin(str, buffer);
+		free(temp);
 	}
 	free(buffer);
-	if (rbytes == 0 && (!str || !*str))
+	return (str);
+}
+
+static char	*process_line(char **str)
+{
+	char	*line;
+	char	*temp;
+
+	if (!str || !*str || !**str)
+		return (NULL);
+	line = get_line(*str);
+	temp = *str;
+	*str = ft_substr(temp, ft_strlen(line), ft_strlen(temp) - ft_strlen(line));
+	free(temp);
+	if (!*str || !**str)
+	{
+		free(*str);
+		*str = NULL;
+	}
+	return (line);
+}
+
+char	*get_next_line(int fd)
+{
+	static char	*str;
+	char		*line;
+	char		*buffer;
+
+	if (fd < 0 || BUFFER_SIZE <= 0)
+		return (NULL);
+	buffer = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (!buffer)
+		return (NULL);
+	str = buffer_manager(fd, str, buffer);
+	if (!str)
 	{
 		free(str);
 		str = NULL;
-		return (NULL);
 	}
-	line = get_line(str);
-	temp = str;
-	str = ft_substr(temp, ft_strlen(line), ft_strlen(temp) - ft_strlen(line));
-	free (temp);
+	line = process_line(&str);
 	return (line);
 }
 
@@ -117,5 +121,7 @@ int	main(void)
 		printf("line %zu: %s", i++, line);
 		free(line);
 	}
+	printf("\n");
+	close (fd);
 	return (0);
 }

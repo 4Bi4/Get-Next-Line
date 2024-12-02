@@ -6,11 +6,31 @@
 /*   By: labia-fe <labia-fe@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 02:20:30 by labia-fe          #+#    #+#             */
-/*   Updated: 2024/12/01 04:25:52 by labia-fe         ###   ########.fr       */
+/*   Updated: 2024/12/02 12:50:32 by labia-fe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+char	*ft_strchr(char *s, int c)
+{
+	unsigned int	i;
+
+	i = 0;
+	if (!s)
+		return (NULL);
+	while (s[i])
+	{
+		if (s[i] == (char)c)
+		{
+			return ((char *)&s[i]);
+		}
+		i++;
+	}
+	if (s[i] == (char)c)
+		return ((char *)&s[i]);
+	return (NULL);
+}
 
 size_t	ft_strlcpy(char *dst, char *src, size_t size)
 {
