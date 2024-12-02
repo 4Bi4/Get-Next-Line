@@ -6,7 +6,7 @@
 /*   By: labia-fe <labia-fe@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 01:11:21 by labia-fe          #+#    #+#             */
-/*   Updated: 2024/12/01 03:12:13 by labia-fe         ###   ########.fr       */
+/*   Updated: 2024/12/02 19:06:49 by labia-fe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define GET_NEXT_LINE_H
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 10
+#  define BUFFER_SIZE 1
 # endif
 
 # include <unistd.h>
@@ -28,7 +28,7 @@ size_t	ft_strlen(char	*str);
 size_t	ft_strlcpy(char *dst, char *src, size_t size);
 
 char	*ft_strdup(char *s);
-char	*get_line(char	*str);
+char	*gusi(char	*str);
 char	*get_next_line(int fd);
 char	*ft_strchr(char *s, int c);
 char	*ft_strjoin(char *s1, char *s2);

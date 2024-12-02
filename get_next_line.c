@@ -6,7 +6,7 @@
 /*   By: labia-fe <labia-fe@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 01:10:38 by labia-fe          #+#    #+#             */
-/*   Updated: 2024/12/02 13:46:56 by labia-fe         ###   ########.fr       */
+/*   Updated: 2024/12/02 19:19:54 by labia-fe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ size_t	ft_strlen(char	*str)
 	return (i);
 }
 
-char	*get_line(char	*str)
+char	*gusi(char	*str)
 {
 	char	*line;
 	int		i;
@@ -30,7 +30,7 @@ char	*get_line(char	*str)
 	i = 0;
 	if (!str)
 		return (NULL);
-	line = (char *)malloc(sizeof(char) * (ft_strlen(str) + 1));
+	line = (char *)malloc(sizeof(char) * (ft_strlen(str) + 2));
 	if (!line)
 		return (NULL);
 	while (str[i] != '\n' && str[i])
@@ -66,6 +66,7 @@ static char	*buffer_manager(int fd, char *str, char *buffer)
 		free(temp);
 	}
 	free(buffer);
+	buffer = NULL;
 	return (str);
 }
 
@@ -76,7 +77,7 @@ static char	*process_line(char **str)
 
 	if (!str || !*str || !**str)
 		return (NULL);
-	line = get_line(*str);
+	line = gusi(*str);
 	temp = *str;
 	*str = ft_substr(temp, ft_strlen(line), ft_strlen(temp) - ft_strlen(line));
 	free(temp);
@@ -100,28 +101,28 @@ char	*get_next_line(int fd)
 	if (!buffer)
 		return (NULL);
 	str = buffer_manager(fd, str, buffer);
-	if (!str)
+	line = process_line(&str);
+	if (!str || !line)
 	{
 		free(str);
 		str = NULL;
 	}
-	line = process_line(&str);
 	return (line);
 }
 
-int	main(void)
-{
-	char	*line;
-	int		fd;
-	size_t	i;
+// int	main(void)
+// {
+// 	char	*line;
+// 	int		fd;
+// 	size_t	i = 0;
 
-	fd = open("test.txt", O_RDONLY);
-	while ((line = get_next_line(fd)))
-	{
-		printf("line %zu: %s", i++, line);
-		free(line);
-	}
-	printf("\n");
-	close (fd);
-	return (0);
-}
+// 	fd = open("test.txt", O_RDONLY);
+// 	while ((line = get_next_line(fd)))
+// 	{
+// 		printf("line %zu: %s", i++, line);
+// 		free(line);
+// 	}
+// 	printf("\n");
+// 	close (fd);
+// 	return (0);
+// }

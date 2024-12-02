@@ -6,7 +6,7 @@
 /*   By: labia-fe <labia-fe@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 02:20:30 by labia-fe          #+#    #+#             */
-/*   Updated: 2024/12/02 12:50:32 by labia-fe         ###   ########.fr       */
+/*   Updated: 2024/12/02 18:08:36 by labia-fe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,8 @@ char	*ft_strdup(char *s)
 
 	len = ft_strlen(s);
 	ptr = malloc(len + 1);
-	if (ptr == NULL)
-	{
+	if (!ptr)
 		return (NULL);
-	}
 	i = 0;
 	while (i < len)
 	{
