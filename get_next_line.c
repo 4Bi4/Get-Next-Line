@@ -6,7 +6,7 @@
 /*   By: labia-fe <labia-fe@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 01:10:38 by labia-fe          #+#    #+#             */
-/*   Updated: 2024/12/02 19:19:54 by labia-fe         ###   ########.fr       */
+/*   Updated: 2024/12/08 18:15:39 by labia-fe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ size_t	ft_strlen(char	*str)
 	return (i);
 }
 
-char	*gusi(char	*str)
+char	*get_line(char	*str)
 {
 	char	*line;
 	int		i;
@@ -77,7 +77,7 @@ static char	*process_line(char **str)
 
 	if (!str || !*str || !**str)
 		return (NULL);
-	line = gusi(*str);
+	line = get_line(*str);
 	temp = *str;
 	*str = ft_substr(temp, ft_strlen(line), ft_strlen(temp) - ft_strlen(line));
 	free(temp);
@@ -110,19 +110,19 @@ char	*get_next_line(int fd)
 	return (line);
 }
 
-// int	main(void)
-// {
-// 	char	*line;
-// 	int		fd;
-// 	size_t	i = 0;
+int	main(void)
+{
+	char	*line;
+	int		fd;
+	size_t	i = 0;
 
-// 	fd = open("test.txt", O_RDONLY);
-// 	while ((line = get_next_line(fd)))
-// 	{
-// 		printf("line %zu: %s", i++, line);
-// 		free(line);
-// 	}
-// 	printf("\n");
-// 	close (fd);
-// 	return (0);
-// }
+	fd = open("read_error.txt", O_RDONLY);
+	while ((line = get_next_line(fd)))
+	{
+		printf("line %zu: %s", i++, line);
+		free(line);
+	}
+	printf("\n");
+	close (fd);
+	return (0);
+}
