@@ -6,7 +6,7 @@
 /*   By: labia-fe <labia-fe@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 01:10:38 by labia-fe          #+#    #+#             */
-/*   Updated: 2024/12/08 18:15:39 by labia-fe         ###   ########.fr       */
+/*   Updated: 2024/12/08 18:22:24 by labia-fe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,19 +110,19 @@ char	*get_next_line(int fd)
 	return (line);
 }
 
-int	main(void)
-{
-	char	*line;
-	int		fd;
-	size_t	i = 0;
+// int	main(void)
+// {
+// 	char	*line;
+// 	int		fd;
+// 	size_t	i = 0;
 
-	fd = open("read_error.txt", O_RDONLY);
-	while ((line = get_next_line(fd)))
-	{
-		printf("line %zu: %s", i++, line);
-		free(line);
-	}
-	printf("\n");
-	close (fd);
-	return (0);
-}
+// 	fd = open("test.txt", O_RDONLY);
+// 	while ((line = get_next_line(fd)))
+// 	{
+// 		printf("line %zu: %s", i++, line);
+// 		free(line);
+// 	}
+// 	printf("\n");
+// 	close (fd);
+// 	return (0);
+// }
